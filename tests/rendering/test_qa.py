@@ -33,6 +33,19 @@ class QaReportTests(unittest.TestCase):
         )
         self.assertTrue(report.passed)
 
+    def test_missing_page_size_measurements_fail(self) -> None:
+        report = build_qa_report(
+            source_page_count=1,
+            output_page_count=1,
+            source_page_sizes=[],
+            output_page_sizes=[],
+            generated_font_sizes=[7.0],
+            actual_ink_overlap_count=0,
+        )
+
+        self.assertFalse(report.page_sizes_ok)
+        self.assertFalse(report.passed)
+
 
 if __name__ == "__main__":
     unittest.main()

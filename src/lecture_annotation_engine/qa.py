@@ -34,9 +34,14 @@ def build_qa_report(
 ) -> QaReport:
     fonts = tuple(generated_font_sizes)
     tiny = sum(size < 5.5 for size in fonts)
-    page_sizes_ok = len(source_page_sizes) == len(output_page_sizes) and all(
-        abs(source[0] - output[0]) < 0.01 and abs(source[1] - output[1]) < 0.01
-        for source, output in zip(source_page_sizes, output_page_sizes)
+    page_sizes_ok = (
+        len(source_page_sizes) == source_page_count
+        and len(output_page_sizes) == output_page_count
+        and all(
+            abs(source[0] - output[0]) < 0.01
+            and abs(source[1] - output[1]) < 0.01
+            for source, output in zip(source_page_sizes, output_page_sizes)
+        )
     )
     return QaReport(
         page_count_ok=source_page_count == output_page_count,
