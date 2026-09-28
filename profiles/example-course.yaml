@@ -1,0 +1,53 @@
+schemaVersion: "1.0"
+id: synthetic-linear-algebra
+page:
+  size:
+    widthPt: 595.276
+    heightPt: 841.89
+  orientation: portrait
+sourceStyle:
+  typography: serif lecture notes with blue semantic accents
+  typicalBodyFont: Times-Roman
+  bodyFontSizePt: 11
+  marginsMm:
+    top: 24
+    right: 32
+    bottom: 24
+    left: 32
+  visualIdentity: restrained academic handout
+  figurePreservationPolicy: preserve
+lanes:
+  - id: left-revision
+    side: left
+    available: true
+    reliability: 0.92
+    confidence: 0.90
+    semanticRole: revision
+  - id: right-explanation
+    side: right
+    available: true
+    reliability: 0.90
+    confidence: 0.88
+    semanticRole: explanation
+anchors: [fixed, elastic-frame, structural, flow]
+translation:
+  targetFontPt: 7.5
+  minimumFontPt: 5.5
+  placement: after-logical-source-block
+  mathNormalizationRequired: true
+annotation:
+  targetFontPt: 7.5
+  minimumFontPt: 5.5
+footer:
+  elastic: true
+  downwardReserveMm: 4
+enrichment:
+  coverage: 1.0
+  generationDepth: unbounded
+  visibleDensity: constrained
+  whitespaceFillCap: 0.65
+collision:
+  actualSourceInkOverlap: approximately-zero
+  safetyHalo: soft
+  targetClearanceMm: 3
+  preferredMinimumClearanceMm: 1.25

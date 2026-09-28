@@ -1,0 +1,16 @@
+% Phase 1 XeLaTeX/TikZ overlay skeleton.
+% Compile at least twice whenever `remember picture` is used.
+\documentclass[a4paper]{article}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{tikz}
+\usepackage[margin=0pt]{geometry}
+\pagestyle{empty}
+\setmainfont{TeX Gyre Termes}
+\setCJKmainfont{Noto Serif CJK TC}
+\begin{document}
+\begin{tikzpicture}[remember picture,overlay]
+  % The renderer emits nodes anchored to LectureIR geometry here.
+  % Never cover immutable source ink; safety-halo intrusion is a soft fallback.
+\end{tikzpicture}
+\end{document}
