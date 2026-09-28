@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "1.0",
+  "document": {
+    "pageSizePt": { "width": 595.276, "height": 841.89 },
+    "orientation": "portrait",
+    "pageCount": 1,
+    "courseProfileRef": "profiles/example-course.yaml",
+    "languages": { "source": "en", "targets": ["zh-Hant"] }
+  },
+  "sourceRegions": [
+    {
+      "id": "definition-1",
+      "type": "definition",
+      "text": "A vector space is a set closed under vector addition and scalar multiplication.",
+      "geometry": {
+        "pageNumber": 1,
+        "bbox": { "x": 0.22, "y": 0.20, "width": 0.58, "height": 0.10 },
+        "preferredPosition": "source",
+        "anchorType": "structural",
+        "readingOrder": 1,
+        "logicalGroup": "vector-space-definition"
+      },
+      "sourceInk": {
+        "immutable": true,
+        "geometryRef": "mask://page/1/definition-1"
+      }
+    },
+    {
+      "id": "artifact-1",
+      "type": "source-artifact",
+      "text": "synthetic black square",
+      "geometry": {
+        "pageNumber": 1,
+        "bbox": { "x": 0.79, "y": 0.31, "width": 0.015, "height": 0.012 },
+        "preferredPosition": "source",
+        "anchorType": "fixed",
+        "readingOrder": 2,
+        "logicalGroup": "source-artifact"
+      },
+      "sourceInk": {
+        "immutable": true,
+        "geometryRef": "mask://page/1/artifact-1"
+      }
+    }
+  ],
+  "translations": [
+    {
+      "id": "translation-definition-1",
+      "attachedSourceBlock": "definition-1",
+      "targetLanguage": "zh-Hant",
+      "text": "向量空間是一個對向量加法與純量乘法封閉的集合。",
+      "mathNormalized": true
+    }
+  ],
+  "annotations": [
+    {
+      "id": "note-definition-1",
+      "type": "definition-intuition",
+      "semanticAnchor": "definition-1",
+      "priority": "required",
+      "preferredLane": "right",
+      "targetFontPt": 7.5,
+      "minimumFontPt": 5.5,
+      "text": "Closure means the two operations never leave the set.",
+      "layoutConstraints": {
+        "preferredRegion": "right-lane",
+        "collisionTolerance": "zero-source-ink",
+        "minimumClearanceMm": 1.25,
+        "movementAllowance": 0.25
+      }
+    }
+  ]
+}

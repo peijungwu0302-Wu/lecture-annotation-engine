@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lecture-annotation-engine.dev/schemas/course-profile.schema.json",
+  "title": "Lecture Annotation Engine CourseProfile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "page",
+    "sourceStyle",
+    "lanes",
+    "anchors",
+    "translation",
+    "annotation",
+    "footer",
+    "enrichment",
+    "collision"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "page": { "$ref": "#/$defs/page" },
+    "sourceStyle": { "$ref": "#/$defs/sourceStyle" },
+    "lanes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/lane" }
+    },
+    "anchors": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 4,
+      "items": {
+        "enum": ["fixed", "elastic-frame", "structural", "flow"]
+      },
+      "allOf": [
+        { "contains": { "const": "fixed" } },
+        { "contains": { "const": "elastic-frame" } },
+        { "contains": { "const": "structural" } },
+        { "contains": { "const": "flow" } }
+      ]
+    },
+    "translation": { "$ref": "#/$defs/textPolicy" },
+    "annotation": { "$ref": "#/$defs/textPolicy" },
+    "footer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["elastic", "downwardReserveMm"],
+      "properties": {
+        "elastic": { "const": true },
+        "downwardReserveMm": { "type": "number", "minimum": 0 }
+      }
+    },
+    "enrichment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["coverage", "generationDepth", "visibleDensity", "whitespaceFillCap"],
+      "properties": {
+        "coverage": { "const": 1.0 },
+        "generationDepth": { "const": "unbounded" },
+        "visibleDensity": { "const": "constrained" },
+        "whitespaceFillCap": {
+          "type": "number",
+          "minimum": 0.60,
+          "maximum": 0.70
+        }
+      }
+    },
+    "collision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actualSourceInkOverlap",
+        "safetyHalo",
+        "targetClearanceMm",
+        "preferredMinimumClearanceMm"
+      ],
+      "properties": {
+        "actualSourceInkOverlap": { "const": "approximately-zero" },
+        "safetyHalo": { "const": "soft" },
+        "targetClearanceMm": { "type": "number", "minimum": 3 },
+        "preferredMinimumClearanceMm": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 1.5
+        }
+      }
+    }
+  },
+  "$defs": {
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["size", "orientation"],
+      "properties": {
+        "size": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["widthPt", "heightPt"],
+          "properties": {
+            "widthPt": { "type": "number", "exclusiveMinimum": 0 },
+            "heightPt": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        },
+        "orientation": { "enum": ["portrait", "landscape"] }
+      }
+    },
+    "sourceStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "typography",
+        "typicalBodyFont",
+        "bodyFontSizePt",
+        "marginsMm",
+        "visualIdentity",
+        "figurePreservationPolicy"
+      ],
+      "properties": {
+        "typography": { "type": "string" },
+        "typicalBodyFont": { "type": "string" },
+        "bodyFontSizePt": { "type": "number", "exclusiveMinimum": 0 },
+        "marginsMm": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["top", "right", "bottom", "left"],
+          "properties": {
+            "top": { "type": "number", "minimum": 0 },
+            "right": { "type": "number", "minimum": 0 },
+            "bottom": { "type": "number", "minimum": 0 },
+            "left": { "type": "number", "minimum": 0 }
+          }
+        },
+        "visualIdentity": { "type": "string" },
+        "figurePreservationPolicy": { "enum": ["preserve", "preserve-if-possible"] }
+      }
+    },
+    "lane": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "side", "available", "reliability", "confidence", "semanticRole"],
+      "properties": {
+        "id": { "type": "string" },
+        "side": { "enum": ["left", "right", "center", "footer"] },
+        "available": { "type": "boolean" },
+        "reliability": { "type": "number", "minimum": 0, "maximum": 1 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "semanticRole": {
+          "enum": ["revision", "explanation", "annotation-island", "footer-reserve"]
+        }
+      }
+    },
+    "textPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["targetFontPt", "minimumFontPt"],
+      "properties": {
+        "targetFontPt": { "type": "number", "minimum": 7, "maximum": 8 },
+        "minimumFontPt": { "type": "number", "minimum": 5.5 },
+        "placement": { "const": "after-logical-source-block" },
+        "mathNormalizationRequired": { "const": true }
+      }
+    }
+  }
+}
